@@ -4,9 +4,13 @@ def main():
     num_words = count_words(text)
     counted_characters = count_characters(text)
     alphabetic_characters = filter_alphabetic_characters(counted_characters)
-    print(text)
-    print(f"The number of words is: {num_words}")
-    print(counted_characters)
+    list_of_dicts = convert_to_list_of_dicts(alphabetic_characters)
+    list_of_dicts.sort(reverse=True, key=sort_on)
+    print(f"--- Begin report of {book_path} ---")
+    print(f"{num_words} words found in the document\n")
+    for item in list_of_dicts:
+        print(f"The '{item['character']}' character was found {item['num']} times")
+    print("--- End report ---")
 
 #convert into a list of dictionaries
 def convert_to_list_of_dicts(alphabetic_characters):
@@ -14,6 +18,12 @@ def convert_to_list_of_dicts(alphabetic_characters):
     for character, count in alphabetic_characters.items():
         list_of_dicts.append({"character": character, "num": count})
     return list_of_dicts
+
+
+def sort_on(dict):
+    return dict["num"]
+
+
 
 #filter out non-alphabetic characters
 def filter_alphabetic_characters(counted_characters):

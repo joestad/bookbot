@@ -6,11 +6,19 @@ def main():
     alphabetic_characters = filter_alphabetic_characters(counted_characters)
     list_of_dicts = convert_to_list_of_dicts(alphabetic_characters)
     list_of_dicts.sort(reverse=True, key=sort_on)
-    print(f"--- Begin report of {book_path} ---")
-    print(f"{num_words} words found in the document\n")
+
+    report_lines = [
+        f"--- Begin report of {book_path} ---",
+        f"{num_words} words found in the document",
+        ""
+    ]
+
     for item in list_of_dicts:
-        print(f"The '{item['character']}' character was found {item['num']} times")
-    print("--- End report ---")
+        report_lines.append(f"The '{item['character']} character was found {item['num']} times")
+
+    report_lines.append("--- End report ---")
+
+    print("\n".join(report_lines))
 
 #convert into a list of dictionaries
 def convert_to_list_of_dicts(alphabetic_characters):
